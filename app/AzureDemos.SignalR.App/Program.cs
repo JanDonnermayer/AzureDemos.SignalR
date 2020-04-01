@@ -26,14 +26,18 @@ namespace AzureDemos.SignalR.App
 
             using var _ = new SignalRReceiver(connectionString)
                 .Receive<string>(HubName, UserName, MethodName)
-                .Subscribe(WriteLine, err => Error.WriteLine(err));
+                .Subscribe(
+                    msg => WriteLine("Received: " + msg),
+                    err => Error.WriteLine(err)
+                );
 
-            while (true)
-            {
-                await new SignalRPublisher(connectionString)
-                    .PublishAsync(HubName, MethodName, PromptLine("Please enter message!"))
-                    .ConfigureAwait(false);
-            }
+            await Task.Delay(1000).ConfigureAwait(false);
+
+            await new SignalRPublisher(connectionString)
+                .PublishAsync(HubName, MethodName, PromptLine("Please enter message!"))
+                .ConfigureAwait(false);
+
+            await Task.Delay(1000).ConfigureAwait(false);
         }
 
         private static string PromptLine(string message)
