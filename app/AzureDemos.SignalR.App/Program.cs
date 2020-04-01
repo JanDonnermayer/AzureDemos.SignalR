@@ -5,6 +5,7 @@ using AzureDemos.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Reactive.Concurrency;
 
 namespace AzureDemos.SignalR.App
 {
@@ -26,18 +27,15 @@ namespace AzureDemos.SignalR.App
 
             using var _ = new SignalRReceiver(connectionString)
                 .Receive<string>(HubName, UserName, MethodName)
+                .ObserveOn(NewThreadScheduler.Default)
                 .Subscribe(
                     msg => WriteLine("Received: " + msg),
-                    err => Error.WriteLine(err)
+                    err => Error.WriteLine("Error: " + err)
                 );
-
-            await Task.Delay(1000).ConfigureAwait(false);
 
             await new SignalRPublisher(connectionString)
                 .PublishAsync(HubName, MethodName, PromptLine("Please enter message!"))
                 .ConfigureAwait(false);
-
-            await Task.Delay(1000).ConfigureAwait(false);
         }
 
         private static string PromptLine(string message)
