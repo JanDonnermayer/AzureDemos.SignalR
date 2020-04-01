@@ -15,8 +15,6 @@ namespace AzureDemos.SignalR.ConsumerApp
         {
             var config = new ConfigurationBuilder()
                 .AddUserSecrets<Program>()
-                .AddCommandLine(args)
-                .AddEnvironmentVariables()
                 .Build();
 
             var connectionString = config.ResolveValue("SignalR:ConnectionString");
@@ -29,17 +27,16 @@ namespace AzureDemos.SignalR.ConsumerApp
                 .Receive<string>(HubName, UserName, MethodName)
                 .ObserveOn(NewThreadScheduler.Default)
                 .Subscribe(
-                    msg => WriteLine("Received: " + msg),
+                    msg => WriteLine(TimeStamped("Received: " + msg)),
                     err => Error.WriteLine("Error: " + err)
                 );
+
+            WriteLine("Start listening.");
 
             Console.ReadKey();
         }
 
-        private static string PromptLine(string message)
-        {
-            WriteLine(message);
-            return ReadLine();
-        }
+        private static string TimeStamped(string message) =>
+            $"[{DateTime.Now.ToString("hh:mm:ss")}] {message}";
     }
 }

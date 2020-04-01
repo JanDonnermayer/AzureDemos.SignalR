@@ -15,26 +15,19 @@ namespace AzureDemos.SignalR.PublisherApp
         {
             var config = new ConfigurationBuilder()
                 .AddUserSecrets<Program>()
-                .AddCommandLine(args)
-                .AddEnvironmentVariables()
                 .Build();
 
             var connectionString = config.ResolveValue("SignalR:ConnectionString");
 
             const string HubName = "hub1";
-            const string UserName = "user1";
             const string MethodName = "method1";
+
+            WriteLine("Please enter messages!");
 
             while(true)
                 await new SignalRPublisher(connectionString)
-                    .PublishAsync(HubName, MethodName, PromptLine("Please enter message!"))
+                    .PublishAsync(HubName, MethodName, ReadLine())
                     .ConfigureAwait(false);
-        }
-
-        private static string PromptLine(string message)
-        {
-            WriteLine(message);
-            return ReadLine();
         }
     }
 }
