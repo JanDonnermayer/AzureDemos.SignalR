@@ -1,8 +1,8 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace AzureDemos.SignalR.Client.Tests
 {
-    public class Tests
+    public class SignalRReceiverIntegrationTests
     {
         [SetUp]
         public void Setup()
