@@ -40,12 +40,13 @@ namespace AzureDemos.SignalR.Client
         public Task PublishAsync<T>(string hubName, string methodName, T message) =>
             GetContextObservable(hubName)
                 .FirstAsync()
-                .Select(con => con.Clients.All
-                    .SendCoreAsync(
-                        method: methodName,
-                        args: new object[] { message }
-                    )
-                    .ToObservable()
+                .Select(
+                    con => con.Clients.All
+                        .SendCoreAsync(
+                            method: methodName,
+                            args: new object[] { message }
+                        )
+                        .ToObservable()
                 )
                 .Switch()
                 .ToTask();

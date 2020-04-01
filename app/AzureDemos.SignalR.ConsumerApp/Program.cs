@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Reactive.Concurrency;
 
-namespace AzureDemos.SignalR.App
+namespace AzureDemos.SignalR.ConsumerApp
 {
     class Program
     {
@@ -21,9 +21,9 @@ namespace AzureDemos.SignalR.App
 
             var connectionString = config.ResolveValue("SignalR:ConnectionString");
 
-            const string MethodName = "method1";
             const string HubName = "hub1";
             const string UserName = "user1";
+            const string MethodName = "method1";
 
             using var _ = new SignalRReceiver(connectionString)
                 .Receive<string>(HubName, UserName, MethodName)
@@ -33,9 +33,7 @@ namespace AzureDemos.SignalR.App
                     err => Error.WriteLine("Error: " + err)
                 );
 
-            await new SignalRPublisher(connectionString)
-                .PublishAsync(HubName, MethodName, PromptLine("Please enter message!"))
-                .ConfigureAwait(false);
+            Console.ReadKey();
         }
 
         private static string PromptLine(string message)
