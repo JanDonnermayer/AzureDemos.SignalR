@@ -1,6 +1,6 @@
 # AzureDemos.SignalR
 
-A simple example on how different agents can communicate using [Microsoft SignalR](https://azure.microsoft.com/en-us/services/signalr-service/) and the [Azure cloud](https://portal.azure.com/).
+A simple example different agents can communicate using [Microsoft SignalR](https://azure.microsoft.com/en-us/services/signalr-service/) and the [Azure cloud](https://portal.azure.com/).
 
 ## Setup
 
