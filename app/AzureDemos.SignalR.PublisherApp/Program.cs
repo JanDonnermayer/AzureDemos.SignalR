@@ -24,10 +24,14 @@ namespace AzureDemos.SignalR.PublisherApp
 
             WriteLine("Please enter messages!");
 
+            var publisher = new SignalRPublisher(connectionString);
+
             while(true)
-                await new SignalRPublisher(connectionString)
+            {
+                await publisher
                     .PublishAsync(HubName, MethodName, ReadLine())
                     .ConfigureAwait(false);
+            }
         }
     }
 }

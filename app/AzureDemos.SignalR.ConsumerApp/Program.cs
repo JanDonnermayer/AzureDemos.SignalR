@@ -33,10 +33,10 @@ namespace AzureDemos.SignalR.ConsumerApp
 
             WriteLine("Start listening.");
 
-            Console.ReadKey();
+            ReadKey();
         }
 
         private static string TimeStamped(string message) =>
-            $"[{DateTime.Now.ToString("hh:mm:ss")}] {message}";
+            $"[{DateTime.Now:hh:mm:ss}] {message}";
     }
 }
