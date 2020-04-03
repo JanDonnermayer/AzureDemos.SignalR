@@ -1,6 +1,6 @@
 # AzureDemos.SignalR
 
-A simple example on how different agents can communicate in an event-based manner using Microsoft Azure SignalR.
+A simple example on how different agents can communicate in an event-based manner using [Microsoft SignalR](https://azure.microsoft.com/en-us/services/signalr-service/) and the Azure cloud.
 
 ## Setup
 
